@@ -1,6 +1,6 @@
 const express = require("express");
 const { v4: uuidv4 } = require("uuid");
-//const { swaggerUi, swaggerSpec } = require("./swaggerConfig");
+const { swaggerUi, swaggerSpec } = require("./swaggerConfig");
 const cors = require("cors");
 const app = express();
 
@@ -27,6 +27,7 @@ let tasks = [
 
 app.use(cors());
 app.use(express.json());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get("/", (request, response) => {
   response.send("<h1>ToDo List</h1>");

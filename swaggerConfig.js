@@ -6,7 +6,7 @@ const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "API de TO-DO LIST",
+      title: "API de TO-DO LIST - Welinton Suarez - Diana Bedoya",
       version: "1.0.0",
       description: "Una API para administrar un To-Do list",
     },
