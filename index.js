@@ -29,15 +29,77 @@ app.use(cors());
 app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+/**
+ * @openapi
+ * /:
+ *   get:
+ *     summary: Página de inicio
+ *     description: Retorna un mensaje de bienvenida
+ *     responses:
+ *       200:
+ *         description: Respuesta exitosa
+ *         content:
+ *           text/html:
+ *             schema:
+ *               type: string
+ */
 app.get("/", (request, response) => {
   response.send("<h1>ToDo List</h1>");
 });
 
+/**
+ * @openapi
+ * /tasks:
+ *   get:
+ *     summary: Obtener todas la tareas
+ *     description: Retorna una lista de todos las tareas
+ *     responses:
+ *       200:
+ *         description: Respuesta exitosa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Task'
+ */
 app.get("/tasks", (request, response) => {
   response.json(tasks);
 });
 
 //GET BY ID
+
+/**
+ * @openapi
+ * /tasks/{id}:
+ *   get:
+ *     summary: Obtener una tarea por ID
+ *     description: Retorna una tarea en específico basado en su ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID de la tarea
+ *     responses:
+ *       200:
+ *         description: Respuesta exitosa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Task'
+ *       404:
+ *         description: Tarea no encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de error
+ */
 app.get("/tasks/:id", (req, res, next) => {
   const { params = {} } = req;
   const { id = "" } = params;
@@ -56,6 +118,26 @@ app.get("/tasks/:id", (req, res, next) => {
 });
 
 //CREATE
+/**
+ * @openapi
+ * /tasks:
+ *   post:
+ *     summary: Crear una nueva tarea
+ *     description: Crea una nueva tarea con la información proporcionada
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TaskInput'
+ *     responses:
+ *       201:
+ *         description: Tarea creada exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Task'
+ */
 app.post("/tasks", (req, res) => {
   const { body } = req;
   const task = {
@@ -65,6 +147,44 @@ app.post("/tasks", (req, res) => {
   tasks.push(task);
   res.status(201).json(task);
 });
+
+/**
+ * @openapi
+ * /tasks/{id}:
+ *   put:
+ *     summary: Actualizar una tarea existente
+ *     description: Actualiza la información de una tarea existente basado en su ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del contacto
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TaskInput'
+ *     responses:
+ *       200:
+ *         description: Tarea actualizada exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Task'
+ *       404:
+ *         description: Tarea no encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de error
+ */
 
 //UPDATE
 app.put("/tasks/:id", (req, res) => {
@@ -84,6 +204,34 @@ app.put("/tasks/:id", (req, res) => {
 });
 
 //DELETE
+
+/**
+ * @openapi
+ * /tasks/{id}:
+ *   delete:
+ *     summary: Elimina una tarea correctamente
+ *     description: Elimina una tarea existente basado en su ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del contacto
+ *     responses:
+ *       204:
+ *         description: Tarea eliminada exitosamente
+ *       404:
+ *         description: Tarea no encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de error
+ */
 app.delete("/tasks/:id", (req, res) => {
   const { id } = req.params;
   let taskIndex = tasks.findIndex((task) => task.id === id);
@@ -116,3 +264,42 @@ const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+//ESQUEMAS PARA SAWWAGER
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Task:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: ID de la tarea
+ *         title:
+ *           type: string
+ *           description: Descripcion de la tarea
+ *         status:
+ *           type: string
+ *           description: Estado de la tarea (ToDo - pending - Done)
+ *         responsible:
+ *           type: string
+ *           description: Quien tiene asignada la tarea
+ *     TaskInput:
+ *       type: object
+ *       properties:
+ *         title:
+ *           type: string
+ *           description: Descripcion de la tarea
+ *         status:
+ *           type: string
+ *           description: Estado de la tarea (ToDo - pending - Done)
+ *         responsible:
+ *           type: string
+ *           description: Responsable de la tarea
+ *       required:
+ *         - title
+ *         - status
+ *         - responsible
+ */
