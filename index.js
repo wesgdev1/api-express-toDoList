@@ -65,6 +65,36 @@ app.post("/tasks", (req, res) => {
   res.status(201).json(task);
 });
 
+//UPDATE
+app.put("/tasks/:id", (req, res) => {
+  const { id } = req.params;
+  const { body } = req;
+  let taskIndex = tasks.findIndex((task) => task.id === id);
+
+  if (taskIndex === -1) {
+    return res.status(404).json({ message: "Note not found" });
+  }
+
+  tasks[taskIndex] = {
+    ...tasks[taskIndex],
+    ...body,
+  };
+  res.json(tasks[taskIndex]);
+});
+
+//DELETE
+app.delete("/tasks/:id", (req, res) => {
+  const { id } = req.params;
+  let taskIndex = tasks.findIndex((task) => task.id === id);
+
+  if (taskIndex === -1) {
+    return res.status(404).json({ message: "Note not found" });
+  }
+
+  tasks.splice(taskIndex, 1);
+  res.sendStatus(204);
+});
+
 app.use((req, res, next) => {
   next({
     statusCode: 404,
