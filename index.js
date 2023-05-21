@@ -21,6 +21,22 @@ app.get("/api/tasks", (request, response) => {
   response.json(tasks);
 });
 
+app.use((req, res, next) => {
+  next({
+    statusCode: 404,
+    message: "Route Not Found",
+  });
+});
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message = "Error" } = err;
+  console.log(message);
+  res.status(statusCode);
+  res.json({
+    message,
+  });
+});
+
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
