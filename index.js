@@ -7,18 +7,50 @@ const app = express();
 let tasks = [
   {
     id: "0c3aea71-6d17-4a0e-ac37-8a0175f790b1",
-    name: "elvergalarwerwerwergrraff34343434FGFGFDFDFDFGDFDFFG",
-    email: "xxxxxxxx@hotmail.com34343RTRTRT4",
-    phone: "QUE CALOR2",
+    title: "Comprar pan",
+    status: "In_progress",
+    responsible: "Welinton Suarez",
+  },
+  {
+    id: "0c3aea71-6d17-4a0e-ac37-8a0175f79023",
+    title: "Comprar leche",
+    status: "To_do",
+    responsible: "Eduardo Montejo",
+  },
+  {
+    id: "0c3aea71-6d17-4a0e-ac37-8a0175f79056",
+    title: "Comprar aceite",
+    status: "Done",
+    responsible: "Diana Vergel",
   },
 ];
+
+app.use(cors());
+app.use(express.json());
 
 app.get("/", (request, response) => {
   response.send("<h1>ToDo List</h1>");
 });
 
-app.get("/api/tasks", (request, response) => {
+app.get("/tasks", (request, response) => {
   response.json(tasks);
+});
+
+app.get("/tasks/:id", (req, res, next) => {
+  const { params = {} } = req;
+  const { id = "" } = params;
+  const task = tasks.find(function (element) {
+    return id === element.id;
+  });
+
+  if (task) {
+    res.json(task);
+  } else {
+    next({
+      statusCode: 404,
+      message: `Note with ${id}, Not Found`,
+    });
+  }
 });
 
 app.use((req, res, next) => {
