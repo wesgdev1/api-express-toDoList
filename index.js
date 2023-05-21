@@ -36,6 +36,7 @@ app.get("/tasks", (request, response) => {
   response.json(tasks);
 });
 
+//GET BY ID
 app.get("/tasks/:id", (req, res, next) => {
   const { params = {} } = req;
   const { id = "" } = params;
@@ -51,6 +52,17 @@ app.get("/tasks/:id", (req, res, next) => {
       message: `Note with ${id}, Not Found`,
     });
   }
+});
+
+//CREATE
+app.post("/tasks", (req, res) => {
+  const { body } = req;
+  const task = {
+    id: uuidv4(),
+    ...body,
+  };
+  tasks.push(task);
+  res.status(201).json(task);
 });
 
 app.use((req, res, next) => {
