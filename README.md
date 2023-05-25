@@ -6,7 +6,7 @@ Este proyecto es una API que permite administrar un ToDo list. Proporciona endpo
 
 ## Documentación
 
-La documentación de la API se encuentra disponible en [Swagger UI](https://wesgdev1.github.io/api-express-toDoList/).
+La documentación de la API se encuentra disponible en [Documentacion API - MIDDELWARES](https://wesgdev1.github.io/api-express-toDoList/).
 
 ## Instalación
 

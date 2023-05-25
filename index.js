@@ -44,7 +44,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *               type: string
  */
 app.get("/", (request, response) => {
-  response.send("<h1>ToDo List</h1>");
+  response.send("<h1>Proyecto Api para un KanBa - Poryecto make It real</h1>");
 });
 
 /**
