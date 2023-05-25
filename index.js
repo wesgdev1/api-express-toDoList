@@ -21,7 +21,7 @@ let tasks = [
     id: "0c3aea71-6d17-4a0e-ac37-8a0175f79056",
     title: "Comprar aceite",
     status: "Done",
-    responsible: "Diana Vergel",
+    responsible: "Diana Bedoya",
   },
 ];
 
