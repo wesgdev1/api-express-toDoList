@@ -20,7 +20,7 @@ let tasks = [
   {
     id: "0c0aea71-6d17-4a0e-ac37-8a0175f654b1",
     task: "Comprar arooz",
-    assigned: "InKnady higuita",
+    assigned: "Knady higuita",
     state: "done",
   },
 ];
