@@ -6,22 +6,22 @@ const app = express();
 
 let tasks = [
   {
-    id: "0c3aea71-6d17-4a0e-ac37-8a0175f790b1",
-    title: "Comprar pan",
-    status: "In_progress",
-    responsible: "Welinton Suarez",
+    id: "0c1aea71-6d17-4a0e-ac37-8a0175f866b1",
+    task: "Comprar pan",
+    assigned: "Pedro suarez",
+    state: "in-progress",
   },
   {
-    id: "0c3aea71-6d17-4a0e-ac37-8a0175f79023",
-    title: "Comprar leche",
-    status: "To_do",
-    responsible: "Eduardo Montejo",
+    id: "0c2aea71-6d17-4a0e-ac37-8a0175f145b1",
+    task: "Comprar leche",
+    assigned: "Eduardo Montejo",
+    state: "to-do",
   },
   {
-    id: "0c3aea71-6d17-4a0e-ac37-8a0175f79056",
-    title: "Comprar aceite",
-    status: "Done",
-    responsible: "Diana Bedoya",
+    id: "0c0aea71-6d17-4a0e-ac37-8a0175f654b1",
+    task: "Comprar arooz",
+    assigned: "InKnady higuita",
+    state: "done",
   },
 ];
 
