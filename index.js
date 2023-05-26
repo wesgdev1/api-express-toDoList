@@ -278,29 +278,29 @@ app.listen(PORT, () => {
  *         id:
  *           type: string
  *           description: ID de la tarea
- *         title:
+ *         task:
  *           type: string
  *           description: Descripcion de la tarea
- *         status:
+ *         assigned:
  *           type: string
- *           description: Estado de la tarea (ToDo - pending - Done)
- *         responsible:
+ *           description: Nombre de la persona a cargo de la tarea
+ *         state:
  *           type: string
- *           description: Quien tiene asignada la tarea
+ *           description: Estado de la tarea (to-do, in-progress , done)
  *     TaskInput:
  *       type: object
  *       properties:
- *         title:
+ *         task:
  *           type: string
  *           description: Descripcion de la tarea
- *         status:
+ *         assigned:
  *           type: string
- *           description: Estado de la tarea (ToDo - pending - Done)
- *         responsible:
+ *           description: Nombre de la persona a cargo de la tarea
+ *         state:
  *           type: string
- *           description: Responsable de la tarea
+ *           description: Estado de la tarea (to-do, in-progress , done)
  *       required:
- *         - title
- *         - status
- *         - responsible
+ *         - task
+ *         - assigned
+ *         - state
  */
